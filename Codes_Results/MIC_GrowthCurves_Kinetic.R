@@ -161,6 +161,37 @@ process_plate <- function(plate_info) {
 all_data <- map_dfr(plates, process_plate)
 
 # =============================================================================
+# SHARED STYLE — keep in sync with MIC_Endpoint.R
+# =============================================================================
+
+# Lineage palette: ancestor = darkblue, evolved = firebrick.
+# Both "ancestral" and "ancestor" map to the ancestor color so legacy designs
+# work without normalising the column.
+lineage_colors <- c(
+  ancestor  = "darkblue",
+  ancestral = "darkblue",
+  evolved   = "firebrick"
+)
+
+# Sample cohort classifier — same buckets as endpoint script.
+classify_sample <- function(s) {
+  s <- as.character(s)
+  case_when(
+    grepl("^PA01",  s) ~ "PA strains",
+    grepl("^NA\\d", s) ~ "N-lines",
+    grepl("^M\\d",  s) ~ "M-lines",
+    grepl("^T\\d",  s) ~ "T-lines",
+    TRUE               ~ NA_character_
+  )
+}
+
+sample_group_levels <- c("M-lines", "T-lines", "N-lines", "PA strains")
+
+all_data <- all_data %>%
+  mutate(sample_group = factor(classify_sample(Sample),
+                               levels = sample_group_levels))
+
+# =============================================================================
 # REPLICATE NUMBERING (within plate x sample x lineage x concentration)
 # =============================================================================
 
@@ -227,7 +258,8 @@ treatment_snap <- snapshots %>%
 # Keep every replicate. If no concentration drops below the cutoff,
 # record mic = NA and flag censored = TRUE (resistant beyond max tested conc).
 mic_per_rep <- treatment_snap %>%
-  group_by(Plate, Sample, Antibiotic, Lineage, replicate, timepoint_label) %>%
+  group_by(Plate, Sample, sample_group, Antibiotic, Lineage,
+           replicate, timepoint_label) %>%
   arrange(Concentration, .by_group = TRUE) %>%
   summarize(
     max_conc_tested = max(Concentration, na.rm = TRUE),
@@ -252,7 +284,7 @@ cat("\nMIC censoring (replicates where no conc reached OD < ", od_cutoff, "):\n"
 print(censoring, n = Inf)
 
 mic_summary <- mic_per_rep %>%
-  group_by(Sample, Antibiotic, Lineage, timepoint) %>%
+  group_by(Sample, sample_group, Antibiotic, Lineage, timepoint) %>%
   summarize(
     n_replicates       = n(),
     n_censored         = sum(censored),
@@ -316,6 +348,7 @@ p_controls <- sample_data %>%
   ggplot(aes(x = Time_h, y = OD_blanked,
              color = Lineage, group = interaction(Well, Plate))) +
   geom_line(alpha = 0.8, linewidth = 0.6) +
+  scale_color_manual(values = lineage_colors) +
   facet_wrap(~Sample + Antibiotic) +
   labs(title = paste0("Growth controls (Concentration = ", control_conc, "): per-well curves"),
        x = "Time (h)", y = "OD600 (blanked)") +
@@ -369,9 +402,13 @@ plot_plate_layout <- function(plate_data, plate_name) {
               x = Inf, y = Inf, hjust = 1.02, vjust = 1.15,
               size = 1.7, color = "gray20", inherit.aes = FALSE) +
     scale_color_manual(values = c(
-      ancestor = "#1f77b4", evolved = "#d62728",
-      control  = "darkgreen",
-      blank    = "gray70",  empty = "gray85", other = "black"
+      ancestor  = unname(lineage_colors["ancestor"]),
+      ancestral = unname(lineage_colors["ancestral"]),
+      evolved   = unname(lineage_colors["evolved"]),
+      control   = "darkgreen",
+      blank     = "gray70",
+      empty     = "gray85",
+      other     = "black"
     ), name = NULL) +
     facet_grid(row_letter ~ col_num, switch = "y") +
     labs(title = paste("Plate layout — kinetic curves:", plate_name),
@@ -414,6 +451,7 @@ p_dr <- ggplot(dose_resp,
                 width = 0.08) +
   geom_hline(yintercept = od_cutoff, linetype = "dashed", color = "gray40") +
   scale_x_log10() +
+  scale_color_manual(values = lineage_colors) +
   facet_grid(Antibiotic + Sample ~ timepoint_label, scales = "free_y") +
   labs(title = "Dose-response at MIC timepoints (mean ± SE)",
        subtitle = paste("Dashed line = od_cutoff =", od_cutoff,
@@ -668,54 +706,66 @@ lh_plot_data <- life_history %>%
   )
 
 p_lh <- ggplot(lh_plot_data,
-               aes(x = Lineage, y = mean_val, color = Lineage)) +
+               aes(x = Sample, y = mean_val, color = Lineage)) +
   geom_point(size = 2.5) +
   geom_errorbar(aes(ymin = mean_val - se_val, ymax = mean_val + se_val),
-                width = 0.15) +
-  facet_grid(trait ~ Sample + Antibiotic, scales = "free_y") +
-  labs(title = "Life-history traits (growth-control wells; mean ± SE)",
+                width = 0.05) +
+  scale_color_manual(values = lineage_colors) +
+  facet_grid(trait ~ ., scales = "free_y") +
+  labs(title = "Life-history traits T-lines | TOB (growth-control wells; mean ± SE)",
        x = NULL, y = "Value") +
   theme_bw() +
-  theme(legend.position = "none",
+  theme(legend.position = "bottom",
         strip.text.y = element_text(size = 8))
 
-# MIC: timepoints across columns (left-to-right in time), antibiotics down rows
+# MIC by cohort: rows = sample_group | Antibiotic (empty combos dropped),
+# x = Sample, color = Lineage, shape = timepoint. Same vocabulary as the
+# endpoint plot so kinetic and endpoint figures read identically.
 mic_summary <- mic_summary %>%
   mutate(timepoint = factor(timepoint,
                             levels = paste0(round(sort(mic_timepoints_h)), "h")))
 
-# Build a plotting frame that shows fully-resistant groups (every replicate
-# censored) as ">max_conc_tested" with a triangle marker, instead of dropping.
 mic_plot_data <- mic_summary %>%
   mutate(
     fully_censored = (n_censored == n_replicates),
     plot_y    = ifelse(fully_censored, max_conc_tested, mic_geometric_mean),
     plot_low  = ifelse(fully_censored, NA_real_,         mic_geo_se_lower),
-    plot_high = ifelse(fully_censored, NA_real_,         mic_geo_se_upper)
-  )
+    plot_high = ifelse(fully_censored, NA_real_,         mic_geo_se_upper),
+    panel     = paste0(sample_group, " | ", Antibiotic)
+  ) %>%
+  mutate(panel = factor(panel,
+                        levels = unique(panel[order(sample_group, Antibiotic)])))
+
+# Shape mapping for timepoints: cycle through filled circle / triangle / square
+# / diamond depending on how many timepoints the user selected.
+timepoint_levels <- levels(mic_plot_data$timepoint)
+timepoint_shapes <- setNames(c(16, 17, 15, 18, 8)[seq_along(timepoint_levels)],
+                             timepoint_levels)
 
 p_mic <- ggplot(mic_plot_data,
-                aes(x = Sample, y = plot_y, color = Lineage)) +
-  geom_point(aes(shape = fully_censored),
-             position = position_dodge(width = 0.5), size = 2.5) +
+                aes(x = Sample, y = plot_y,
+                    color = Lineage, shape = timepoint,
+                    group = interaction(Lineage, timepoint))) +
+  geom_point(position = position_dodge(width = 0.6), size = 2.8) +
   geom_errorbar(aes(ymin = plot_low, ymax = plot_high),
-                position = position_dodge(width = 0.5), width = 0.2,
-                na.rm = TRUE) +
+                position = position_dodge(width = 0.6),
+                width = 0.25, na.rm = TRUE) +
   scale_y_log10() +
-  scale_shape_manual(values = c(`FALSE` = 16, `TRUE` = 2),
-                     labels = c(`FALSE` = "MIC reached",
-                                `TRUE`  = ">max conc (censored)"),
-                     name = NULL) +
-  facet_grid(Antibiotic ~ timepoint, scales = "free_x") +
-  labs(title = "MIC at sampled timepoints (geometric mean ± SE)",
+  scale_color_manual(values = lineage_colors) +
+  scale_shape_manual(values = timepoint_shapes, name = "Timepoint") +
+  facet_wrap(~ panel, scales = "free_x", drop = TRUE) +
+  labs(title = "MIC by sample cohort (geometric mean ± SE)",
+       subtitle = paste("Cohorts: M-lines, T-lines, N-lines, PA strains.",
+                        "\nPoints at max concentration = censored (no replicate reached cutoff)."),
        x = "Sample", y = "MIC (µg/mL)") +
   theme_bw() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom",
+        axis.text.x     = element_text(angle = 30, hjust = 1))
 
 ggsave(file.path(out_dir, "life_history_traits.pdf"),
-       p_lh, width = 12, height = 8)
+       p_lh, width = 4, height = 7)
 ggsave(file.path(out_dir, "MIC_kinetic_timepoints.pdf"),
-       p_mic, width = 10, height = 6)
+       p_mic, width = 6, height = 5)
 
 # Per-well fit overlay: raw OD points + Gompertz fit curve + K and lag markers.
 fit_annot <- life_history %>%
@@ -733,6 +783,7 @@ p_fits <- ggplot(raw_with_fit, aes(x = Time_h, group = Well)) +
              size = 0.4, alpha = 0.4) +
   geom_line(aes(y = OD_pred, color = Lineage),
             linewidth = 0.8, na.rm = TRUE) +
+  scale_color_manual(values = lineage_colors) +
   geom_hline(data = fit_annot,
              aes(yintercept = K_max_OD),
              linetype = "dashed", color = "gray30", linewidth = 0.3) +
