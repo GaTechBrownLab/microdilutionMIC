@@ -1,0 +1,117 @@
+Experiment,Plate,Antibiotic,Sample,sample_group,Lineage,replicate,timepoint,max_conc_tested,mic,censored
+Exp1,Plate1,MRP,M1,M-lines,evolved,1,16h,32,0.38,FALSE
+Exp1,Plate1,MRP,M1,M-lines,evolved,1,24h,32,0.38,FALSE
+Exp1,Plate1,MRP,M1,M-lines,evolved,2,16h,32,0.38,FALSE
+Exp1,Plate1,MRP,M1,M-lines,evolved,2,24h,32,0.125,FALSE
+Exp1,Plate1,MRP,M1,M-lines,evolved,3,16h,32,0.38,FALSE
+Exp1,Plate1,MRP,M1,M-lines,evolved,3,24h,32,0.38,FALSE
+Exp1,Plate1,MRP,M2,M-lines,evolved,1,16h,32,0.38,FALSE
+Exp1,Plate1,MRP,M2,M-lines,evolved,1,24h,32,0.38,FALSE
+Exp1,Plate1,MRP,M2,M-lines,evolved,2,16h,32,0.38,FALSE
+Exp1,Plate1,MRP,M2,M-lines,evolved,2,24h,32,0.38,FALSE
+Exp1,Plate1,MRP,M2,M-lines,evolved,3,16h,32,0.38,FALSE
+Exp1,Plate1,MRP,M2,M-lines,evolved,3,24h,32,0.38,FALSE
+Exp1,Plate1,MRP,NA1,N-lines,evolved,1,16h,32,0.047,FALSE
+Exp1,Plate1,MRP,NA1,N-lines,evolved,1,24h,32,0.047,FALSE
+Exp1,Plate2,MRP,M3,M-lines,evolved,1,16h,32,0.38,FALSE
+Exp1,Plate2,MRP,M3,M-lines,evolved,1,24h,32,0.38,FALSE
+Exp1,Plate2,MRP,M3,M-lines,evolved,2,16h,32,0.38,FALSE
+Exp1,Plate2,MRP,M3,M-lines,evolved,2,24h,32,0.38,FALSE
+Exp1,Plate2,MRP,M3,M-lines,evolved,3,16h,32,0.38,FALSE
+Exp1,Plate2,MRP,M3,M-lines,evolved,3,24h,32,0.38,FALSE
+Exp1,Plate2,MRP,NA1,N-lines,evolved,1,16h,32,0.047,FALSE
+Exp1,Plate2,MRP,NA1,N-lines,evolved,1,24h,32,0.047,FALSE
+Exp1,Plate3,TOB,NA1,N-lines,evolved,1,16h,256,0.016,FALSE
+Exp1,Plate3,TOB,NA1,N-lines,evolved,1,24h,256,0.047,FALSE
+Exp1,Plate3,TOB,T1,T-lines,evolved,1,16h,256,0.38,FALSE
+Exp1,Plate3,TOB,T1,T-lines,evolved,1,24h,256,1,FALSE
+Exp1,Plate3,TOB,T1,T-lines,evolved,2,16h,256,0.38,FALSE
+Exp1,Plate3,TOB,T1,T-lines,evolved,2,24h,256,1,FALSE
+Exp1,Plate3,TOB,T1,T-lines,evolved,3,16h,256,0.38,FALSE
+Exp1,Plate3,TOB,T1,T-lines,evolved,3,24h,256,3,FALSE
+Exp1,Plate3,TOB,T2,T-lines,evolved,1,16h,256,0.38,FALSE
+Exp1,Plate3,TOB,T2,T-lines,evolved,1,24h,256,3,FALSE
+Exp1,Plate3,TOB,T2,T-lines,evolved,2,16h,256,1,FALSE
+Exp1,Plate3,TOB,T2,T-lines,evolved,2,24h,256,3,FALSE
+Exp1,Plate3,TOB,T2,T-lines,evolved,3,16h,256,1,FALSE
+Exp1,Plate3,TOB,T2,T-lines,evolved,3,24h,256,3,FALSE
+Exp1,Plate4,TOB,NA1,N-lines,evolved,1,16h,256,0.016,FALSE
+Exp1,Plate4,TOB,NA1,N-lines,evolved,1,24h,256,0.016,FALSE
+Exp1,Plate4,TOB,T3,T-lines,evolved,1,16h,256,1,FALSE
+Exp1,Plate4,TOB,T3,T-lines,evolved,1,24h,256,3,FALSE
+Exp1,Plate4,TOB,T3,T-lines,evolved,2,16h,256,1,FALSE
+Exp1,Plate4,TOB,T3,T-lines,evolved,2,24h,256,3,FALSE
+Exp1,Plate4,TOB,T3,T-lines,evolved,3,16h,256,1,FALSE
+Exp1,Plate4,TOB,T3,T-lines,evolved,3,24h,256,3,FALSE
+Exp2.1,Plate1,TOB,PA01_1,PA strains,ancestor,1,16h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_1,PA strains,ancestor,1,24h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_1,PA strains,ancestor,2,16h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_1,PA strains,ancestor,2,24h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_1,PA strains,ancestor,3,16h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_1,PA strains,ancestor,3,24h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_2,PA strains,ancestor,1,16h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_2,PA strains,ancestor,1,24h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_2,PA strains,ancestor,2,16h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_2,PA strains,ancestor,2,24h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_2,PA strains,ancestor,3,16h,256,1,FALSE
+Exp2.1,Plate1,TOB,PA01_2,PA strains,ancestor,3,24h,256,1,FALSE
+Exp2.1,Plate2,TOB,NA1,N-lines,evolved,1,16h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA1,N-lines,evolved,1,24h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA1,N-lines,evolved,2,16h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA1,N-lines,evolved,2,24h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA1,N-lines,evolved,3,16h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA1,N-lines,evolved,3,24h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA2,N-lines,evolved,1,16h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA2,N-lines,evolved,1,24h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA2,N-lines,evolved,2,16h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA2,N-lines,evolved,2,24h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA2,N-lines,evolved,3,16h,256,0.125,FALSE
+Exp2.1,Plate2,TOB,NA2,N-lines,evolved,3,24h,256,0.125,FALSE
+Exp2.1,Plate3,TOB,NA1,N-lines,ancestor,1,16h,256,0.125,FALSE
+Exp2.1,Plate3,TOB,NA1,N-lines,ancestor,1,24h,256,0.125,FALSE
+Exp2.1,Plate3,TOB,NA1,N-lines,ancestor,2,16h,256,0.125,FALSE
+Exp2.1,Plate3,TOB,NA1,N-lines,ancestor,2,24h,256,0.125,FALSE
+Exp2.1,Plate3,TOB,NA1,N-lines,ancestor,3,16h,256,0.125,FALSE
+Exp2.1,Plate3,TOB,NA1,N-lines,ancestor,3,24h,256,0.125,FALSE
+Exp2.1,Plate3,TOB,NA3,N-lines,evolved,1,16h,256,0.38,FALSE
+Exp2.1,Plate3,TOB,NA3,N-lines,evolved,1,24h,256,0.38,FALSE
+Exp2.1,Plate3,TOB,NA3,N-lines,evolved,2,16h,256,0.125,FALSE
+Exp2.1,Plate3,TOB,NA3,N-lines,evolved,2,24h,256,0.38,FALSE
+Exp2.1,Plate3,TOB,NA3,N-lines,evolved,3,16h,256,0.125,FALSE
+Exp2.1,Plate3,TOB,NA3,N-lines,evolved,3,24h,256,0.38,FALSE
+Exp2.1,Plate4,TOB,NA2,N-lines,ancestor,1,16h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA2,N-lines,ancestor,1,24h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA2,N-lines,ancestor,2,16h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA2,N-lines,ancestor,2,24h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA2,N-lines,ancestor,3,16h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA2,N-lines,ancestor,3,24h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA3,N-lines,ancestor,1,16h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA3,N-lines,ancestor,1,24h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA3,N-lines,ancestor,2,16h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA3,N-lines,ancestor,2,24h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA3,N-lines,ancestor,3,16h,256,0.125,FALSE
+Exp2.1,Plate4,TOB,NA3,N-lines,ancestor,3,24h,256,0.125,FALSE
+Exp2.2,Plate1,MRP,PA01_1,PA strains,ancestor,1,24h,256,32,FALSE
+Exp2.2,Plate1,MRP,PA01_1,PA strains,ancestor,2,24h,256,32,FALSE
+Exp2.2,Plate1,MRP,PA01_1,PA strains,ancestor,3,24h,256,32,FALSE
+Exp2.2,Plate1,MRP,PA01_2,PA strains,ancestor,1,24h,256,64,FALSE
+Exp2.2,Plate1,MRP,PA01_2,PA strains,ancestor,2,24h,256,32,FALSE
+Exp2.2,Plate1,MRP,PA01_2,PA strains,ancestor,3,24h,256,64,FALSE
+Exp2.2,Plate2,MRP,NA1,N-lines,evolved,1,24h,256,0.38,FALSE
+Exp2.2,Plate2,MRP,NA1,N-lines,evolved,2,24h,256,0.38,FALSE
+Exp2.2,Plate2,MRP,NA1,N-lines,evolved,3,24h,256,0.38,FALSE
+Exp2.2,Plate2,MRP,NA2,N-lines,evolved,1,24h,256,0.38,FALSE
+Exp2.2,Plate2,MRP,NA2,N-lines,evolved,2,24h,256,0.38,FALSE
+Exp2.2,Plate2,MRP,NA2,N-lines,evolved,3,24h,256,0.38,FALSE
+Exp2.2,Plate3,MRP,NA1,N-lines,ancestor,1,24h,256,0.38,FALSE
+Exp2.2,Plate3,MRP,NA1,N-lines,ancestor,2,24h,256,0.38,FALSE
+Exp2.2,Plate3,MRP,NA1,N-lines,ancestor,3,24h,256,0.125,FALSE
+Exp2.2,Plate3,MRP,NA3,N-lines,evolved,1,24h,256,0.38,FALSE
+Exp2.2,Plate3,MRP,NA3,N-lines,evolved,2,24h,256,0.38,FALSE
+Exp2.2,Plate3,MRP,NA3,N-lines,evolved,3,24h,256,0.38,FALSE
+Exp2.2,Plate4,MRP,NA2,N-lines,ancestor,1,24h,256,0.38,FALSE
+Exp2.2,Plate4,MRP,NA2,N-lines,ancestor,2,24h,256,0.38,FALSE
+Exp2.2,Plate4,MRP,NA2,N-lines,ancestor,3,24h,256,0.38,FALSE
+Exp2.2,Plate4,MRP,NA3,N-lines,ancestor,1,24h,256,0.38,FALSE
+Exp2.2,Plate4,MRP,NA3,N-lines,ancestor,2,24h,256,0.38,FALSE
+Exp2.2,Plate4,MRP,NA3,N-lines,ancestor,3,24h,256,0.38,FALSE

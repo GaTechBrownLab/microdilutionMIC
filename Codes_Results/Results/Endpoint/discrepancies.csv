@@ -1,0 +1,5 @@
+experiment,plate,issue
+Exp2.1,Plate3,Lineage value 'ancestral' normalised to 'ancestor'
+Exp2.2,Plate3,Type value 'emtpy' normalised to 'empty'
+Exp2.2,Plate3,Lineage value 'ancestral' normalised to 'ancestor'
+Exp2.2,Plate4,Type value 'emtpy' normalised to 'empty'
